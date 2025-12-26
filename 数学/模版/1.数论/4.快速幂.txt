@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1000010;
+
+int qmi(int a,int k, int p) {
+    int res = 1;
+    while (k) {
+        if (k & 1) res = (LL) res * a % p;
+        k >>= 1;
+        a = a * a % p;
+    }
+    return res;
+}
+
+int main() {
+    int n;
+    scanf("%d",&n);
+    while (n --) {
+        int a,k,p;
+        scanf("%d%d%d",&a,&k,&p);
+        printf("%d\n",qmi(a,k,p));
+    }
+    return 0;
+}
+
+//求当a的p次方(a,p)=1中a的乘法逆元,可以利用费马定理再加上快速幂
+所以输出qmi(a,p-2,p);
+
+
+/*
+i:
+2
+3 2 5
+4 3 9
+O:
+4
+1
+*/
+
+/*求乘法逆元:
+i:
+3
+4 3
+8 5
+6 3
+O:
+1
+2
+imposible
+*/

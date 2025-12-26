@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+const int N = 100010;
+
+int n,m;
+int H[N],s;
+
+void down(int u) {
+    int t = u;
+    if (u * 2 <= s && H[u * 2] < H[t]) t = u * 2;
+    if (u * 2 + 1 <= s && H[u * 2 + 1] < H[t]) t = u * 2 + 1;
+    if (u != t) {
+        swap(H[u],H[t]);
+        down(t);
+    }
+}
+
+void up(int u) {
+    while (u / 2 && H[u / 2] > H[u]) {
+        swap(H[u/2],H[u]);
+        u /= 2;
+    }
+}
+
+int main() {
+    scanf("%d%d",&n,&m);
+    for (int i = 1;i <= n;i++) scanf("%d",&H[i]);
+    s = n;
+
+    for (int i = n / 2;i;i--) down(i);
+
+    while (m --) {
+        printf("%d ",H[1]);
+        H[1] = H[s];
+        s--;
+        down(1);
+    }
+
+    return 0;
+}

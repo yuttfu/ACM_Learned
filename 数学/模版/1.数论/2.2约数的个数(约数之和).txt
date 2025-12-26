@@ -1,0 +1,50 @@
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+
+typedef long long LL;
+
+const int mod = 1e9 + 7;
+
+int main() {
+    int n;
+    cin >> n;
+
+    unordered_map<int,int> primes;
+    while (n --) {
+        int x;
+        cin >> x;
+        for (int i= 2;i <= x/i;i++) {
+            while (x % i == 0) {
+                x /= i;
+                primes[i]++;
+            }
+            if (x > 1) primes[x] ++;
+        }
+        LL res = 1;
+```
+        for (auto t : primes) res = res * (t.second + 1) % mod; //约数个数
+```
+```
+	for (auto t : primes)
+        {
+            int p = t.first,a = t.second;
+            LL h = 1;
+            while (a --) h = (h * p + 1) % mod;
+            res = res * h % mod;
+        }                                                                                //约数之和
+```
+        cout << res << endl;
+        primes.clear();
+    }
+
+    return 0;
+}
+/*
+i:
+1
+8
+o:
+4
+*/
